@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <script src="./flyout.js"></script>
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes popIn {
+        from {
+          opacity: 0;
+          transform: translateY(1rem) scale(1.2);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+
+        to {
+          opacity: 0;
+        }
+      }
+
+      @keyframes popOut {
+        from {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+
+        to {
+          opacity: 0;
+          transform: translateY(1rem) scale(1.2);
+        }
+      }
+
+      .flyout-container {
+        position: relative;
+      }
+
+      /* Trigger */
+      .flyout-container [aria-haspopup='menu'] { }
+
+      /* flyout */
+      .flyout-container [role="menu"] {
+        display: none;
+
+        position: absolute;
+        top: 100%;
+
+        width: 200px;
+        background-color: red;
+
+        flex-direction: column;
+      }
+
+      .flyout-container [role="menu"][open] {
+        display: flex;
+      }
+
+      .flyout-container [role='menu'][open] {
+        animation: 300ms ease-out forwards popIn;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flyout-container">
+      <button aria-haspopup="menu"
+              aria-expanded="false"
+              aria-controls="my-popup">
+        Open flyout
+      </button>
+
+      <div id="my-popup" role="menu">
+        <button role="menuitem">option 1</button>
+        <button role="menuitem">option 2</button>
+      </div>
+    </div>
+  </body>
+</html>
+
