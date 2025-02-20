@@ -5,7 +5,8 @@ extension Node.BA {
   public static func Dialog(
     id _id: String?,
     trigger: Node,
-    popup: Node
+    popup: Node,
+    expanded: Bool = false
   ) async -> Node {
     @Dependency(\.uuid) var uuid
     @Dependency(\.baunilha) var baunilha
@@ -14,7 +15,7 @@ extension Node.BA {
     return .fragment([
       trigger.appending(attributes: [
         ("aria-haspopup", "dialog"),
-        ("aria-expanded", "false"),
+        ("aria-expanded", expanded ? "true" : "false"),
         ("aria-controls", id),
       ]),
       popup.appending(attributes: [
