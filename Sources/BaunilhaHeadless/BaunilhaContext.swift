@@ -13,7 +13,8 @@ public actor BaunilhaContext {
   var _scripts: Set<BaunilhaScript> = .init()
 
   public func scripts(basePath: String) -> Node {
-    let _basePath = basePath.hasSuffix("/")
+    let _basePath =
+      basePath.hasSuffix("/")
       ? basePath
       : basePath + "/"
     return .fragment(
