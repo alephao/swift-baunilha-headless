@@ -23,7 +23,7 @@ let package = Package(
         .product(name: "Dependencies", package: "swift-dependencies"),
       ],
       resources: [
-        .copy("Resources/js/dialog_2bae4421.js"),
+        .copy("Resources/js/dialog_859fcbfb.js"),
         .copy("Resources/js/flyout_6162dfdf.js"),
       ]
     ),
