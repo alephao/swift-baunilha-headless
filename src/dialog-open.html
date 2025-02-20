@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <script src="./dialog.js"></script>
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes popIn {
+        from {
+          opacity: 0;
+          transform: translateY(1rem) scale(1.2);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+
+        to {
+          opacity: 0;
+        }
+      }
+
+      @keyframes popOut {
+        from {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+
+        to {
+          opacity: 0;
+          transform: translateY(1rem) scale(1.2);
+        }
+      }
+
+      [role='dialog'] {
+        position: fixed;
+        inset: 0;
+        /* z-index: 1000; */
+        align-items: center;
+        justify-content: center;
+
+        display: none;
+      }
+
+      [role='dialog']::before {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        content: "";
+      }
+
+      [role='dialog'] > * {
+        padding: 20px;
+        background-color: red;
+      }
+
+      /* Open */
+      [role='dialog'][open] {
+        display: flex;
+      }
+
+      [role='dialog'][open]::before {
+        animation: 300ms ease-out forwards fadeIn;
+      }
+
+      [role='dialog'[open] > * {
+        animation: 300ms ease-out forwards popIn;
+      }
+
+      /* Closing */
+
+      [role='dialog'][open][closing]::before {
+        animation: 200ms ease-in forwards fadeOut;
+      }
+
+      [role='dialog'][open][closing] > * {
+        animation: 200ms ease-in forwards popOut;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="isolation: isolate;">
+      <button 
+        aria-haspopup="dialog" 
+        aria-expanded="true" 
+        aria-controls="my-dialog"
+      >Open dialog</button>
+      <div
+        id="my-dialog"
+        role="dialog"
+        aria-modal="true"
+        open
+      >
+        <div>
+          Dialogao de boa
+          <button close>Close</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

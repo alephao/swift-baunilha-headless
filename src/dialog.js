@@ -30,18 +30,7 @@
       }
       window.baunilha.dialog._listeners.triggers[dialog.id] = []
 
-      // register event listeners for close buttons
-      const closeTriggers = dialog.querySelectorAll('[close]')
-      const closeListeners = []
-      for (let trigger of closeTriggers) {
-        function listener(e) {
-          e.stopPropagation()
-          window.baunilha.dialog.close(dialog)
-        }
-        trigger.addEventListener('click', listener)
-        closeListeners.push([trigger, listener])
-      }
-      window.baunilha.dialog._listeners.closeTriggers[dialog.id] = closeListeners
+      window.baunilha.dialog.hookDialogCloseTriggers(dialog)
     },
     close(dialog) {
       // skip if already closed
@@ -74,6 +63,20 @@
       }
       window.baunilha.dialog._listeners.closeTriggers[dialog.id] = []
     },
+    hookDialogCloseTriggers(dialog) {
+      // register event listeners for close buttons
+      const closeTriggers = dialog.querySelectorAll('[close]')
+      const closeListeners = []
+      for (let trigger of closeTriggers) {
+        function listener(e) {
+          e.stopPropagation()
+          window.baunilha.dialog.close(dialog)
+        }
+        trigger.addEventListener('click', listener)
+        closeListeners.push([trigger, listener])
+      }
+      window.baunilha.dialog._listeners.closeTriggers[dialog.id] = closeListeners
+    },
     hookDialogTriggers(dialog) {
       const triggers = window.baunilha.dialog.getDialogTriggers(dialog)
       let listeners = []
@@ -86,6 +89,11 @@
         listeners.push([trigger, listener])
       }
       window.baunilha.dialog._listeners.triggers[dialog.id] = listeners
+
+      // If dialog starts open, we need to hook its close triggers
+      if (dialog.hasAttribute('open')) {
+        window.baunilha.dialog.hookDialogCloseTriggers(dialog)
+      }
     },
     setupPortal() {
       const portal = document.createElement('div')
