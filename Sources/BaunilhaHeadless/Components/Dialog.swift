@@ -18,11 +18,13 @@ extension Node.BA {
         ("aria-expanded", expanded ? "true" : "false"),
         ("aria-controls", id),
       ]),
-      popup.appending(attributes: [
-        ("id", id),
-        ("role", "dialog"),
-        ("aria-modal", "true"),
-      ])
+      popup.appending(
+        attributes: [
+          ("id", id),
+          ("role", "dialog"),
+          ("aria-modal", "true"),
+        ] + (expanded ? [("open", "")] : [])
+      ),
     ])
   }
 }
