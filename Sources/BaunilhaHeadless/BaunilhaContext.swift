@@ -34,8 +34,8 @@ public actor BaunilhaContext {
 }
 
 extension BaunilhaContext: DependencyKey {
-  public static var liveValue: BaunilhaContext = .init()
-  public static var testValue: BaunilhaContext = .init()
+  public static let liveValue: BaunilhaContext = .init()
+  public static let testValue: BaunilhaContext = .init()
 }
 
 extension DependencyValues {
